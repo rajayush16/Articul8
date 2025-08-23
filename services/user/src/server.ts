@@ -3,6 +3,8 @@ import dotenv from "dotenv"
 import connectDB from "./utils/db.js";
 import UserRoutes from "./routes/User.js"
 import { v2 as cloudinary } from "cloudinary";
+import cors from 'cors';
+
 dotenv.config();
 
 // Creating instance of express
@@ -20,6 +22,8 @@ cloudinary.config({
 
 // To allow json request from body
 app.use(express.json());
+
+app.use(cors());
 
 // Mounting the routes
 app.use("/api/v1",UserRoutes)
