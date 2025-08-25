@@ -10,6 +10,12 @@ dotenv.config();
 // Creating instance of express
 const app = express();
 
+// To allow json request from body
+app.use(express.json());
+// To allow cross origin requests
+app.use(cors());
+
+
 // Connecting to DB
 connectDB()
 
