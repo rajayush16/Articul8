@@ -94,8 +94,9 @@ export const updateBlog = TryCatch(async (req: AuthenticatedRequest, res) => {
         category = ${category || blog[0]?.category}
 
         WHERE id = ${id}
-        RETURNING *
-        `;
+        RETURNING *`;
+
+    await invalidateCache(["blogs:*", `blog:${id}`]);
 
     res.json({
         message: "Blog Updated",
@@ -123,6 +124,8 @@ export const deleteBlog = TryCatch(async (req: AuthenticatedRequest, res) => {
     await sql`DELETE FROM savedblogs WHERE blogid = ${req.params.id}`;
     await sql`DELETE FROM comments WHERE blogid = ${req.params.id}`;
     await sql`DELETE FROM blogs WHERE id = ${req.params.id}`;
+
+    await invalidateCache(["blogs:*", `blog:${req.params.id}`]);
 
     res.json({
         message: "Blog Delete",
