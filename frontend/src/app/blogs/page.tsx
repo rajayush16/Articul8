@@ -1,6 +1,6 @@
  
 "use client";
-// import BlogCard from "@/components/BlogCard";
+import BlogCard from "@/components/BlogCard";
 import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
@@ -33,7 +33,7 @@ const Blogs = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {blogs?.length === 0 && <p>No Blogs Yet</p>}
-              {/* {blogs &&
+              {blogs &&
                 blogs.map((e, i) => {
                   return (
                     <BlogCard
@@ -45,7 +45,7 @@ const Blogs = () => {
                       time={e.created_at}
                     />
                   );
-                })} */}
+                })}
             </div>
           )}
         </div>
