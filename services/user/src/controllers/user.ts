@@ -1,4 +1,4 @@
-
+"use client";
 import User from "../model/User.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"

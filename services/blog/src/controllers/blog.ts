@@ -18,17 +18,17 @@ export const getAllBlogs = TryCatch(async(req, res)=>{
 
     let blogs;
 
-    if (searchQuery && category) {
+    if (searchQuery != "" && category != "") {
         blogs = await sql`SELECT * FROM blogs WHERE (title ILIKE ${
         "%" + searchQuery + "%"
     } OR description ILIKE ${
       "%" + searchQuery + "%"
     }) AND category = ${category} ORDER BY create_at DESC`;
-    } else if (searchQuery) {
+    } else if (searchQuery != "") {
         blogs = await sql`SELECT * FROM blogs WHERE (title ILIKE ${
         "%" + searchQuery + "%"
         } OR description ILIKE ${"%" + searchQuery + "%"}) ORDER BY create_at DESC`;
-    } else if (category) {
+    } else if (category != "") {
         blogs = await sql`SELECT * FROM blogs WHERE category=${category} ORDER BY create_at DESC`;
     } else {
         blogs = await sql`SELECT * FROM blogs ORDER BY create_at DESC`;
