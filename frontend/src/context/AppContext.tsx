@@ -89,7 +89,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     try {
       const token = Cookies.get("token");
 
-      const { data } = await axios.get(`${user_service}/api/v1/me`, {
+      const { data } = await axios.get<User>(`${user_service}/api/v1/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -113,7 +113,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   async function fetchBlogs() {
     setBlogLoading(true);
     try {
-      const { data } = await axios.get(
+      const { data } = await axios.get<Blog[]>(
         `${blog_service}/api/v1/blog/all?searchQuery=${searchQuery}&category=${category}`
       );
 
@@ -130,7 +130,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   async function getSavedBlogs() {
     const token = Cookies.get("token");
     try {
-      const { data } = await axios.get(
+      const { data } = await axios.get<SavedBlogType[]>(
         `${blog_service}/api/v1/blog/saved/all`,
         {
           headers: {
