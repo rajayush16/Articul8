@@ -1,5 +1,4 @@
- 
-"use client";
+ "use client";
 import BlogCard from "@/components/BlogCard";
 import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";

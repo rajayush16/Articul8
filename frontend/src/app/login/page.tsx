@@ -14,7 +14,6 @@ import { useAppData, user_service } from "@/context/AppContext";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useGoogleLogin } from "@react-oauth/google";
-import { redirect } from "next/navigation";
 import Loading from "@/components/loading";
 
 const LoginPage = () => {
