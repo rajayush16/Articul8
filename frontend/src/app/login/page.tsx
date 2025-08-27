@@ -16,7 +16,6 @@ import toast from "react-hot-toast";
 import { useGoogleLogin } from "@react-oauth/google";
 import Loading from "@/components/loading";
 
-
 const LoginPage = () => {
   const { isAuth, setIsAuth, loading, setLoading, setUser } = useAppData();
 
