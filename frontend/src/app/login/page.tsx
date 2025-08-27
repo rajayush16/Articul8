@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,6 @@ import toast from "react-hot-toast";
 import { useGoogleLogin } from "@react-oauth/google";
 import { redirect } from "next/navigation";
 import Loading from "@/components/loading";
-import Image from "next/image";
 
 const LoginPage = () => {
   const { isAuth, setIsAuth, loading, setLoading, setUser } = useAppData();
