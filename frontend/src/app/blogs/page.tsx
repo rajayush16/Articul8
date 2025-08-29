@@ -10,7 +10,7 @@ import React from "react";
 const Blogs = () => {
   const { toggleSidebar } = useSidebar();
   const { loading, blogLoading, blogs } = useAppData();
-  console.log(blogs);
+    console.log("PRINTING BLOGS: ",blogs);
   return (
     <div>
       {loading ? (
@@ -22,6 +22,7 @@ const Blogs = () => {
             <Button
               onClick={toggleSidebar}
               className="flex items-center gap-2 px-4 bg-primary text-white"
+              disabled={blogs?.length === 0}
             >
               <Filter size={18} />
               <span>Filter Blogs</span>
@@ -31,9 +32,9 @@ const Blogs = () => {
             <Loading />
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-              {blogs?.length === 0 && <p>No Blogs Yet</p>}
-              {blogs &&
-                blogs.map((e, i) => {
+              {blogs?.length === 0 && <p className="">No Blogs Yet</p>}
+              {blogs && blogs?.length > 0 &&
+                blogs?.map((e, i) => {
                   return (
                     <BlogCard
                       key={i}

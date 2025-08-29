@@ -66,7 +66,7 @@ const EditBlogPage = () => {
     const fetchBlog = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get(`${blog_service}/api/v1/blog/${id}`);
+        const { data } = await axios.get<any>(`${blog_service}/api/v1/blog/${id}`);
         const blog = data.blog;
 
         setFormData({
@@ -105,7 +105,7 @@ const EditBlogPage = () => {
 
     try {
       const token = Cookies.get("token");
-      const { data } = await axios.post(
+      const { data } = await axios.post<any>(
         `${author_service}/api/v1/blog/${id}`,
         fromDataToSend,
         {
