@@ -47,6 +47,7 @@ export interface Blog {
   category: string;
   author: string;
   created_at: string;
+  message?: string;
 }
 
 interface SavedBlogType {
@@ -68,6 +69,7 @@ interface AppContextType {
   blogLoading: boolean;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   searchQuery: string;
+  category: string;
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   fetchBlogs: () => Promise<void>;
   savedBlogs: SavedBlogType[] | null;
@@ -113,9 +115,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   async function fetchBlogs() {
     setBlogLoading(true);
     try {
-      const { data } = await axios.get<Blog[]>(
+      const { data } = await axios.get<Blog[] | any>(
         `${blog_service}/api/v1/blog/all?searchQuery=${searchQuery}&category=${category}`
       );
+      if(data?.message === "No Blogs Found"){
+        setBlogs([]);
+        return;
+      }
 
       setBlogs(data);
     } catch (error) {
@@ -173,6 +179,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         logoutUser,
         blogs,
         blogLoading,
+        category,
         setCategory,
         setSearchQuery,
         searchQuery,

@@ -15,7 +15,7 @@ import { BoxSelect } from "lucide-react";
 import { blogCategories, useAppData } from "@/context/AppContext";
 
 const SideBar = () => {
-  const { searchQuery, setSearchQuery, setCategory } = useAppData();
+  const { searchQuery, category, setSearchQuery, setCategory } = useAppData();
   return (
     <Sidebar>
       <SidebarHeader className="bg-white text-2xl font-bold mt-5">
@@ -35,12 +35,12 @@ const SideBar = () => {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton onClick={() => setCategory("")}>
-                <BoxSelect /> <span>All</span>
+                <BoxSelect className={`${category === "" ? "bg-primary" : ""}`}/> <span>All</span>
               </SidebarMenuButton>
               {blogCategories?.map((e, i) => {
                 return (
                   <SidebarMenuButton key={i} onClick={() => setCategory(e)}>
-                    <BoxSelect /> <span>{e}</span>
+                    <BoxSelect className={`${category === e ? "bg-primary" : ""}`} /> <span>{e}</span>
                   </SidebarMenuButton>
                 );
               })}
