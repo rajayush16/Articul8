@@ -109,7 +109,7 @@ export const deleteComment = TryCatch(
 
     console.log(comment);
 
-    if (comment[0].userid !== req.user?._id) {
+    if (comment[0]?.userid !== req.user?._id) {
       res.status(401).json({
         message: "You are not owner of this comment",
       });

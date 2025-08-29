@@ -1,5 +1,9 @@
 import type { NextFunction, Request, Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
+import dotenv from "dotenv"
+
+dotenv.config();
+
 
 interface IUser extends Document {
   _id: string;
@@ -23,19 +27,21 @@ export const isAuth = async (
 ): Promise<void> => {
   try {
     const authHeader = req.headers.authorization;
-
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
       res.status(401).json({
         message: "Please Login - No auth header",
       });
       return;
     }
 
-    const token = authHeader.split(" ")[1];
-
-    const decodeValue = jwt.verify(
-      token,
-      process.env.JWT_SEC as string
+    const token = authHeader?.split(" ")[1];
+    if(!token){
+      res.status(404).json({
+          success:false,
+          message:"Token not Found"
+      })
+    }
+    const decodeValue = jwt.verify(token as string,process.env.JWT_SECRET as string
     ) as JwtPayload;
 
     if (!decodeValue || !decodeValue.user) {
