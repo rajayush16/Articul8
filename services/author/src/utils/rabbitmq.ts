@@ -1,4 +1,8 @@
 import amqp from "amqplib"
+import dotenv from "dotenv";
+
+dotenv.config();
+
 
 let channel: amqp.Channel;
 
@@ -7,9 +11,9 @@ export const connectRabbitMQ = async()=>{
         const connection = await amqp.connect({
             protocol:"amqp",
             port: 5672,
-            hostname: "localhost",
-            username:"admin",
-            password:"admin123"
+            hostname: process.env.RABBITMQ_HOSTNAME,
+            username:process.env.RABBITMQ_USERNAME,
+            password:process.env.RABBITMQ_PASSWORD
         })
 
         channel = await connection.createChannel();
