@@ -108,8 +108,8 @@ const AddBlog = () => {
         text: formData.title,
       });
       setFormData({ ...formData, title: data });
-    } catch (error) {
-      toast.error("Problem while fetching from ai");
+    } catch (error:any) {
+      toast.error(error?.response?.data?.message);
       console.log(error);
     } finally {
       setAiTitle(false);
@@ -129,8 +129,8 @@ const AddBlog = () => {
         }
       );
       setFormData({ ...formData, description: data });
-    } catch (error) {
-      toast.error("Problem while fetching from ai");
+    } catch (error:any) {
+      toast.error(error?.response?.data?.message);
       console.log(error);
     } finally {
       setAiDescription(false);
@@ -148,7 +148,7 @@ const AddBlog = () => {
       setContent(data.html);
       setFormData({ ...formData, blogcontent: data.html });
     } catch (error: any) {
-      toast.error("Problem while fetching from ai");
+      toast.error(error?.response?.data?.message);
       console.log(error);
     } finally {
       setAiBlogLoading(false);

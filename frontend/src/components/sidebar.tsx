@@ -15,7 +15,7 @@ import { BoxSelect } from "lucide-react";
 import { blogCategories, useAppData } from "@/context/AppContext";
 
 const SideBar = () => {
-  const { searchQuery, category, setSearchQuery, setCategory } = useAppData();
+  const { debouncedQuery, category, setDebouncedQuery, setCategory } = useAppData();
   return (
     <Sidebar>
       <SidebarHeader className="bg-white text-2xl font-bold mt-5">
@@ -26,8 +26,12 @@ const SideBar = () => {
           <SidebarGroupLabel>Search</SidebarGroupLabel>
           <Input
             type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            value={debouncedQuery}
+            onChange={(e) => {
+              const value = e.target.value.trim();
+              if(value) setDebouncedQuery(e.target.value)
+              else setDebouncedQuery("");
+            }}
             placeholder="Search Your Desired blog"
           />
 
