@@ -1,6 +1,9 @@
 import amqp from "amqplib"
 import { redisClient } from "../server.js";
 import { sql } from "./db.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 interface CacheInvalidationMessage{
     action:string;
@@ -10,12 +13,12 @@ interface CacheInvalidationMessage{
 export const startCacheConsumer = async()=>{
     try {
         const connection = await amqp.connect({
-            protocol: "amqp",
-            hostname: "localhost",
+            protocol:"amqp",
             port: 5672,
-            username:"admin",
-            password:"admin123"
-        });
+            hostname: process.env.RABBITMQ_HOSTNAME,
+            username:process.env.RABBITMQ_USERNAME,
+            password:process.env.RABBITMQ_PASSWORD
+        })
 
         const channel = await connection.createChannel();
 
